@@ -1,6 +1,5 @@
 FILES = push_swap init utils ft_perror gc gc_utils operations1 operations2 \
-         operations3 validation parser_utils parser_space libft
-		 
+         operations3 validation parser_utils parser_space
 
 BONUS_FILES = checker_bonus utils_bonus
 
@@ -9,7 +8,7 @@ AR_NAME = push_swap.a
 CHECKER_NAME = checker
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I inc -I $(LIBFT_PATH)
+CFLAGS = -Wall -Wextra -Werror -I includes -I $(LIBFT_PATH)
 MFLAGS = -s -j16 -C
 AR = ar rcs
 RM = rm -rf
@@ -17,7 +16,7 @@ RM = rm -rf
 LIBFT_PATH = lib/libft/
 LIBFT = $(LIBFT_PATH)libft.a
 CHECKER_PATH = checker_src/
-FILES_PATH = .
+FILES_PATH = src
 
 SRCS = $(addprefix $(FILES_PATH)/, $(addsuffix .c, $(FILES)))
 BONUS = $(addprefix $(CHECKER_PATH), $(addsuffix .c, $(BONUS_FILES)))
@@ -44,13 +43,11 @@ all: $(NAME)
 clean:
 	$(RM) $(OBJS) $(BONUS_OBJS)
 
-fclean: clean libclean
+fclean: clean
 	$(RM) $(NAME)
 	$(RM) $(AR_NAME)
 	$(RM) $(CHECKER_NAME)
-
-libclean:
-	make $(MFLAGS) $(LIBFT_PATH) fclean
+	make $(MFLAGS) $(LIBFT_PATH) clean
 
 re: fclean all
 
