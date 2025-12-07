@@ -6,7 +6,7 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:29:31 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 16:21:58 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/07 16:27:48 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int	init_a_stack(t_node **a, t_node *temp_head, t_gc *gc)
 {
 	t_node	*current;
 	t_node	*new_node;
+	t_node	*check;
+	int		index;
 
 	current = temp_head;
 	while (current)
@@ -103,6 +105,15 @@ int	init_a_stack(t_node **a, t_node *temp_head, t_gc *gc)
 			ft_perror("Error\n");
 			return (0);
 		}
+		index = 0;
+		check = temp_head;
+		while (check)
+		{
+			if (check->value < current->value)
+				index++;
+			check = check->next;
+		}
+		new_node->index = index;
 		append_node(a, new_node);
 		current = current->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:18:37 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 16:22:06 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/07 16:25:04 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 typedef struct s_node
 {
     int             value;
+	int				index;
     struct s_node   *next;
     struct s_node   *prev;
 }               t_node;
