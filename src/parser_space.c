@@ -6,7 +6,7 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 16:00:00 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 16:01:29 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/07 16:22:06 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	extract_number(const char *str, int *i, char *num_str)
 	num_str[num_idx] = '\0';
 }
 
-static void	add_parsed_number(t_node **temp_head, const char *num_str, t_gc *gc)
+static int	add_parsed_number(t_node **temp_head, const char *num_str, t_gc *gc)
 {
 	t_node	*new_node;
 	t_node	*tail;
@@ -42,15 +42,13 @@ static void	add_parsed_number(t_node **temp_head, const char *num_str, t_gc *gc)
 	if (!is_valid_int(num_str))
 	{
 		ft_perror("Error\n");
-		gc_free_all(gc);
-		exit(1);
+		return (0);
 	}
 	new_node = (t_node *)gc_malloc(gc, sizeof(t_node));
 	if (!new_node)
 	{
 		ft_perror("Error\n");
-		gc_free_all(gc);
-		exit(1);
+		return (0);
 	}
 	new_node->value = ft_atoi(num_str);
 	new_node->next = NULL;
@@ -60,9 +58,10 @@ static void	add_parsed_number(t_node **temp_head, const char *num_str, t_gc *gc)
 		tail->next = new_node;
 	else
 		*temp_head = new_node;
+	return (1);
 }
 
-void	parse_space_separated(t_node **temp_head, const char *str, t_gc *gc)
+int	parse_space_separated(t_node **temp_head, const char *str, t_gc *gc)
 {
 	int		i;
 	char	num_str[20];
@@ -75,6 +74,8 @@ void	parse_space_separated(t_node **temp_head, const char *str, t_gc *gc)
 		if (!str[i])
 			break;
 		extract_number(str, &i, num_str);
-		add_parsed_number(temp_head, num_str, gc);
+		if (!add_parsed_number(temp_head, num_str, gc))
+			return (0);
 	}
+	return (1);
 }

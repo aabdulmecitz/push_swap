@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_42norm.c                                      :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:29:31 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 16:01:29 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/07 16:21:58 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,26 @@ static void	append_node(t_node **head, t_node *new_node)
 	}
 }
 
-static void	parse_single_number(t_node **temp_head, const char *str, t_gc *gc)
+static int	parse_single_number(t_node **temp_head, const char *str, t_gc *gc)
 {
 	t_node	*new_node;
 
 	if (!is_valid_int(str))
 	{
 		ft_perror("Error\n");
-		gc_free_all(gc);
-		exit(1);
+		return (0);
 	}
 	new_node = create_node(ft_atoi(str), gc);
 	if (!new_node)
 	{
 		ft_perror("Error\n");
-		gc_free_all(gc);
-		exit(1);
+		return (0);
 	}
 	append_node(temp_head, new_node);
+	return (1);
 }
 
-void	fill_temp_stack(t_node **temp_head, char **argv, t_gc *gc)
+int	fill_temp_stack(t_node **temp_head, char **argv, t_gc *gc)
 {
 	int	i;
 	int	num_count;
@@ -73,18 +72,24 @@ void	fill_temp_stack(t_node **temp_head, char **argv, t_gc *gc)
 		if (num_count < 0)
 		{
 			ft_perror("Error\n");
-			gc_free_all(gc);
-			exit(1);
+			return (0);
 		}
 		if (num_count > 1 || ft_strlen(argv[i]) > 11)
-			parse_space_separated(temp_head, argv[i], gc);
+		{
+			if (!parse_space_separated(temp_head, argv[i], gc))
+				return (0);
+		}
 		else
-			parse_single_number(temp_head, argv[i], gc);
+		{
+			if (!parse_single_number(temp_head, argv[i], gc))
+				return (0);
+		}
 		i++;
 	}
+	return (1);
 }
 
-void	init_a_stack(t_node **a, t_node *temp_head, t_gc *gc)
+int	init_a_stack(t_node **a, t_node *temp_head, t_gc *gc)
 {
 	t_node	*current;
 	t_node	*new_node;
@@ -96,12 +101,12 @@ void	init_a_stack(t_node **a, t_node *temp_head, t_gc *gc)
 		if (!new_node)
 		{
 			ft_perror("Error\n");
-			gc_free_all(gc);
-			exit(1);
+			return (0);
 		}
 		append_node(a, new_node);
 		current = current->next;
 	}
+	return (1);
 }
 
 t_gc	*init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc)
@@ -114,7 +119,7 @@ t_gc	*init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc)
 	{
 		local_gc = (t_gc *)malloc(sizeof(t_gc));
 		if (!local_gc)
-			exit(1);
+			return (NULL);
 		gc_init(local_gc);
 		gc = local_gc;
 	}
@@ -123,21 +128,41 @@ t_gc	*init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc)
 	if (!argv || !argv[1])
 	{
 		ft_perror("Error\n");
-		gc_free_all(gc);
 		if (local_gc)
+		{
+			gc_free_all(gc);
 			free(local_gc);
-		exit(1);
+		}
+		return (NULL);
 	}
 	temp_head = NULL;
-	fill_temp_stack(&temp_head, argv, gc);
+	if (!fill_temp_stack(&temp_head, argv, gc))
+	{
+		if (local_gc)
+		{
+			gc_free_all(gc);
+			free(local_gc);
+		}
+		return (NULL);
+	}
 	if (!check_values(temp_head))
 	{
 		ft_perror("Error\n");
-		gc_free_all(gc);
 		if (local_gc)
+		{
+			gc_free_all(gc);
 			free(local_gc);
-		exit(1);
+		}
+		return (NULL);
 	}
-	init_a_stack(stack_a, temp_head, gc);
+	if (!init_a_stack(stack_a, temp_head, gc))
+	{
+		if (local_gc)
+		{
+			gc_free_all(gc);
+			free(local_gc);
+		}
+		return (NULL);
+	}
 	return (local_gc);
 }
