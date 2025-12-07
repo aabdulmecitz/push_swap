@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/07 14:18:37 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 14:42:28 by aozkaya          ###   ########.fr       */
+/*   Created: 2025/12/07 14:50:30 by aozkaya           #+#    #+#             */
+/*   Updated: 2025/12/07 14:50:40 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-#define PUSH_SWAP_H
+#include "push_swap.h"
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdbool.h>
-
-typedef struct s_node
+t_node	*find_last(t_node *head)
 {
-    int             value;
-    struct s_node   *next;
-    struct s_node   *prev;
-}               t_node;
+    t_node	*current;
 
-typedef struct s_gc_node
-{
-	void				*ptr;
-	struct s_gc_node	*next;
-}						t_gc_node;
+    if (!head)
+        return (NULL);
+    current = head;
+    while (current->next)
+        current = current->next;
+    return (current);
+}
 
-typedef struct s_gc
-{
-	t_gc_node			*head;
-	int					count;
-}						t_gc;
-
-
-#endif

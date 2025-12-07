@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_perror.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/07 14:18:37 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 14:42:28 by aozkaya          ###   ########.fr       */
+/*   Created: 2025/12/07 14:43:27 by aozkaya           #+#    #+#             */
+/*   Updated: 2025/12/07 14:43:39 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-#define PUSH_SWAP_H
+#include "push_swap.h"
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdbool.h>
-
-typedef struct s_node
+void	ft_perror(const char *msg)
 {
-    int             value;
-    struct s_node   *next;
-    struct s_node   *prev;
-}               t_node;
-
-typedef struct s_gc_node
-{
-	void				*ptr;
-	struct s_gc_node	*next;
-}						t_gc_node;
-
-typedef struct s_gc
-{
-	t_gc_node			*head;
-	int					count;
-}						t_gc;
-
-
-#endif
+    if (msg)
+    {
+        while (*msg)
+            write(2, msg++, 1);
+    }
+    else
+    {
+        const char *default_msg = "Error\n";
+        while (*default_msg)
+            write(2, default_msg++, 1);
+    }
+}
