@@ -1,5 +1,5 @@
 FILES = push_swap init utils ft_perror gc gc_utils operations1 operations2 \
-         operations3 validation parser_utils parser_space
+         operations3 validation parser_utils parser_space check_sorted short_sort cost move_to_b
 
 BONUS_FILES = checker_bonus utils_bonus
 
@@ -65,5 +65,17 @@ get_libs:
 
 run: re
 	./$(NAME) 5 1 4 3 2 0 
+
+run_test1: re
+	ARG="4 67 3 87 23"; ./push_swap $$ARG | wc -l
+
+run_test2: re
+	ARG="4 67 3 87 23"; ./push_swap $$ARG | ./checker $$ARG
+
+run_test_100: re
+	ARG=`ruby -e "puts (1..100).to_a.shuffle.join(' ')"`; ./push_swap $$ARG | wc -l
+
+run_test_500: re
+	ARG=`ruby -e "puts (1..500).to_a.shuffle.join(' ')"`; ./push_swap $$ARG | wc -l
 
 .PHONY: all clean fclean re bonus push compile_libs update run

@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   check_sorted.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/07 14:18:27 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/08 00:57:11 by aozkaya          ###   ########.fr       */
+/*   Created: 2025/12/08 00:45:23 by aozkaya           #+#    #+#             */
+/*   Updated: 2025/12/08 00:45:59 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int main(int argc, char **argv)
+bool	is_sorted(t_node *a)
 {
-    t_node  *stack_a;
-    t_node  *stack_b;
-    t_gc    *gc;
-
-    (void)argc;
-    gc = init_stacks(&stack_a, &stack_b, argv, NULL);
-    if (!gc)
-        return (1);
-    if (!is_sorted(stack_a))
-        sort_stacks(&stack_a, &stack_b, gc);
-    if (gc)
+    while (a && a->next)
     {
-        gc_free_all(gc);
-        free(gc);
+        if (a->value > a->next->value)
+            return (false);
+        a = a->next;
     }
-    return (0);
+    return (true);
 }
+
+

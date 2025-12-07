@@ -6,7 +6,7 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:18:37 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 16:25:04 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/08 01:50:10 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ typedef struct s_node
 {
     int             value;
 	int				index;
+	int				cost;
+	int				target_pos_a;
+	int				target_pos_b;
     struct s_node   *next;
     struct s_node   *prev;
 }               t_node;
@@ -37,6 +40,14 @@ typedef struct s_gc
 	t_gc_node			*head;
 	int					count;
 }						t_gc;
+
+typedef struct s_target
+{
+	int					index;
+	int					cost;
+	int					target_pos_a;
+	int					target_pos_b;
+}						t_target;
 
 int					is_valid_int(const char *str);
 int					check_values(t_node *head);
@@ -74,5 +85,15 @@ void				rr(t_node **a, t_node **b, bool print);
 void				rra(t_node **a, bool print);
 void				rrb(t_node **b, bool print);
 void				rrr(t_node **a, t_node **b, bool print);
+
+int					get_position(t_node *stack, int value);
+int					get_stack_size(t_node *stack);
+int					calculate_cost_for_element(t_node *stack_a, t_node *stack_b, int b_position);
+void				calculate_costs(t_node *stack_a, t_node *stack_b);
+int					find_cheapest_element(t_node *stack_b);
+void				move_to_b(t_node **stack_a, t_node **stack_b);
+void				sort_stacks(t_node **stack_a, t_node **stack_b, t_gc *gc);
+void				sort_three(t_node **a);
+bool				is_sorted(t_node *a);
 
 #endif
