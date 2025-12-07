@@ -6,7 +6,7 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:29:31 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 16:27:48 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/07 16:28:39 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,7 @@ int	init_a_stack(t_node **a, t_node *temp_head, t_gc *gc)
 	{
 		new_node = create_node(current->value, gc);
 		if (!new_node)
-		{
-			ft_perror("Error\n");
-			return (0);
-		}
+			return (ft_perror("Error\n"), 0);
 		index = 0;
 		check = temp_head;
 		while (check)
