@@ -6,7 +6,7 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:18:37 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/08 01:50:10 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/08 02:28:22 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <limits.h>
+#include "libft.h"
 
 typedef struct s_node
 {
@@ -52,7 +53,6 @@ typedef struct s_target
 int					is_valid_int(const char *str);
 int					check_values(t_node *head);
 int					count_numbers(const char *str);
-int					ft_strlen(const char *s);
 int					ft_atoi(const char *str);
 int					parse_space_separated(t_node **temp_head, const char *str, t_gc *gc);
 t_gc				*init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc);
@@ -88,8 +88,8 @@ void				rrr(t_node **a, t_node **b, bool print);
 
 int					get_position(t_node *stack, int value);
 int					get_stack_size(t_node *stack);
-int					calculate_cost_for_element(t_node *stack_a, t_node *stack_b, int b_position);
 void				calculate_costs(t_node *stack_a, t_node *stack_b);
+void				print_costs(t_node *stack_a, t_node *stack_b);
 int					find_cheapest_element(t_node *stack_b);
 void				move_to_b(t_node **stack_a, t_node **stack_b);
 void				sort_stacks(t_node **stack_a, t_node **stack_b, t_gc *gc);
