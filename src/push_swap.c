@@ -23,7 +23,10 @@ int main(int argc, char **argv)
     if (!gc)
         return (1);
     print_stack_a(stack_a);
-    gc_free_all(gc);
-    free(gc);
+    if (gc)
+    {
+        gc_free_all(gc);
+        free(gc);
+    }
     return (0);
 }

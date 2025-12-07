@@ -119,7 +119,10 @@ t_gc	*init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc)
 	{
 		local_gc = (t_gc *)malloc(sizeof(t_gc));
 		if (!local_gc)
+		{
+			ft_perror("Error\n");
 			return (NULL);
+		}
 		gc_init(local_gc);
 		gc = local_gc;
 	}
@@ -128,40 +131,32 @@ t_gc	*init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc)
 	if (!argv || !argv[1])
 	{
 		ft_perror("Error\n");
+		gc_free_all(gc);
 		if (local_gc)
-		{
-			gc_free_all(gc);
 			free(local_gc);
-		}
 		return (NULL);
 	}
 	temp_head = NULL;
 	if (!fill_temp_stack(&temp_head, argv, gc))
 	{
+		gc_free_all(gc);
 		if (local_gc)
-		{
-			gc_free_all(gc);
 			free(local_gc);
-		}
 		return (NULL);
 	}
 	if (!check_values(temp_head))
 	{
 		ft_perror("Error\n");
+		gc_free_all(gc);
 		if (local_gc)
-		{
-			gc_free_all(gc);
 			free(local_gc);
-		}
 		return (NULL);
 	}
 	if (!init_a_stack(stack_a, temp_head, gc))
 	{
+		gc_free_all(gc);
 		if (local_gc)
-		{
-			gc_free_all(gc);
 			free(local_gc);
-		}
 		return (NULL);
 	}
 	return (local_gc);
