@@ -104,15 +104,19 @@ void	init_a_stack(t_node **a, t_node *temp_head, t_gc *gc)
 	}
 }
 
-void	init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc)
+t_gc	*init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc)
 {
-	t_gc	local_gc;
+	t_gc	*local_gc;
 	t_node	*temp_head;
 
+	local_gc = NULL;
 	if (!gc)
 	{
-		gc_init(&local_gc);
-		gc = &local_gc;
+		local_gc = (t_gc *)malloc(sizeof(t_gc));
+		if (!local_gc)
+			exit(1);
+		gc_init(local_gc);
+		gc = local_gc;
 	}
 	*stack_a = NULL;
 	*stack_b = NULL;
@@ -120,6 +124,8 @@ void	init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc)
 	{
 		ft_perror("Error\n");
 		gc_free_all(gc);
+		if (local_gc)
+			free(local_gc);
 		exit(1);
 	}
 	temp_head = NULL;
@@ -128,7 +134,10 @@ void	init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc)
 	{
 		ft_perror("Error\n");
 		gc_free_all(gc);
+		if (local_gc)
+			free(local_gc);
 		exit(1);
 	}
 	init_a_stack(stack_a, temp_head, gc);
+	return (local_gc);
 }

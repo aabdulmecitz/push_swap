@@ -43,7 +43,7 @@ int					count_numbers(const char *str);
 int					ft_strlen(const char *s);
 int					ft_atoi(const char *str);
 void				parse_space_separated(t_node **temp_head, const char *str, t_gc *gc);
-void				init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc);
+t_gc				*init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc);
 void				fill_temp_stack(t_node **temp_head, char **argv, t_gc *gc);
 void				init_a_stack(t_node **a, t_node *temp_head, t_gc *gc);
 

@@ -16,10 +16,15 @@ int main(int argc, char **argv)
 {
     t_node  *stack_a;
     t_node  *stack_b;
+    t_gc    *gc;
 
     (void)argc;
-    init_stacks(&stack_a, &stack_b, argv, NULL);
+    gc = init_stacks(&stack_a, &stack_b, argv, NULL);
     print_stack_a(stack_a);
-    
+    if (gc)
+    {
+        gc_free_all(gc);
+        free(gc);
+    }
     return 0;
 }
