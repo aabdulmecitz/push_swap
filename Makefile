@@ -70,7 +70,7 @@ run_test1: re
 	ARG="4 67 3 87 23"; ./push_swap $$ARG | wc -l
 
 run_test2: re
-	ARG="4 67 3 87 23"; ./push_swap $$ARG | ./checker $$ARG
+	ARG="4 67 3 87 23"; ./push_swap $$ARG | ./checker_linux $$ARG
 
 run_test_100: re
 	ARG=`ruby -e "puts (1..100).to_a.shuffle.join(' ')"`; ./push_swap $$ARG | wc -l
