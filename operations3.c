@@ -6,21 +6,7 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:27:06 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 14:50:08 by aozkaya          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "push_swap.h"
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   operations3.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aabdulmecitz <aabdulmecitz@student.42.f    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/27 00:00:00 by                   #+#    #+#             */
-/*   Updated: 2025/11/18 20:56:35 by aabdulmecit      ###   ########.fr       */
+/*   Updated: 2025/12/07 15:20:45 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +33,7 @@ void	rra(t_node **a, bool print)
 	*a = last;
 	(*a)->prev = NULL;
 	if (print)
-		ft_perror("rra\n", 1);
+		ft_perror("rra\n");
 }
 
 void	rrb(t_node **b, bool print)

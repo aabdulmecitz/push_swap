@@ -1,6 +1,4 @@
-FILES = push_swap init utils error operations sort_stack sort_small \
-         init_a_to_b init_b_to_a move_a_to_b move_b_to_a sort_algorithm \
-         check_sorted free operations2 operations3 utils2 lis
+FILES = push_swap init utils ft_perror gc gc_utils operations1 operations2 operations3
 
 BONUS_FILES = checker_bonus utils_bonus
 
@@ -17,7 +15,7 @@ RM = rm -rf
 LIBFT_PATH = lib/libft/
 LIBFT = $(LIBFT_PATH)libft.a
 CHECKER_PATH = checker_src/
-FILES_PATH = src
+FILES_PATH = .
 
 SRCS = $(addprefix $(FILES_PATH)/, $(addsuffix .c, $(FILES)))
 BONUS = $(addprefix $(CHECKER_PATH), $(addsuffix .c, $(BONUS_FILES)))
@@ -63,10 +61,10 @@ compile_libs:
 	make -sC lib/libft
 	make clean -sC lib/libft
 
-update:
+get_libs:
 	git submodule update --init --recursive --remote
 
 run: re
-	./$(NAME) <sth>
+	./$(NAME) 5 1 4 3 2 0 
 
 .PHONY: all clean fclean re bonus push compile_libs update run
