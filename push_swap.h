@@ -6,7 +6,7 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:18:37 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 14:42:28 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/07 15:08:26 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <limits.h>
 
 typedef struct s_node
 {

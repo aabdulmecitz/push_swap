@@ -1,23 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   index.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/07 14:18:27 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 14:57:01 by aozkaya          ###   ########.fr       */
+/*   Created: 2025/12/07 14:54:34 by aozkaya           #+#    #+#             */
+/*   Updated: 2025/12/07 14:54:39 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-int main(int argc, char **argv)
-{
-    t_node  *stack_a;
-    t_node  *stack_b;
-
-    init_stacks(&stack_a, &stack_b, argv, NULL);
-    
-    return 0;
-}
