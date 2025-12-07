@@ -6,7 +6,7 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:29:31 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 15:41:40 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/07 15:47:17 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,43 +100,170 @@ int check_values(t_node *head)
 	return (1);
 }
 
+int ft_strlen(const char *s)
+{
+	int	i;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+int count_numbers(const char *str)
+{
+	int	count;
+	int	in_number;
+	int	i;
+
+	count = 0;
+	in_number = 0;
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] >= '0' && str[i] <= '9') || 
+			((str[i] == '-' || str[i] == '+') && 
+			 (i == 0 || (str[i - 1] == ' ' || str[i - 1] == '\t'))))
+		{
+			if (!in_number)
+			{
+				count++;
+				in_number = 1;
+			}
+		}
+		else if (str[i] == ' ' || str[i] == '\t')
+		{
+			in_number = 0;
+		}
+		else
+		{
+			return (-1);
+		}
+		i++;
+	}
+	return (count);
+}
+
+void parse_space_separated(t_node **temp_head, const char *str, t_gc *gc)
+{
+	int		i;
+	char	num_str[20];
+	int		num_idx;
+	t_node	*new_node;
+	t_node	*tail;
+	int		value;
+
+	i = 0;
+	tail = NULL;
+	if (*temp_head != NULL)
+	{
+		tail = *temp_head;
+		while (tail->next)
+			tail = tail->next;
+	}
+	while (str[i])
+	{
+		while (str[i] == ' ' || str[i] == '\t')
+			i++;
+		if (!str[i])
+			break;
+		num_idx = 0;
+		if ((str[i] == '-' || str[i] == '+') && 
+			(str[i + 1] >= '0' && str[i + 1] <= '9'))
+		{
+			num_str[num_idx++] = str[i++];
+		}
+		while (str[i] >= '0' && str[i] <= '9')
+		{
+			num_str[num_idx++] = str[i++];
+		}
+		num_str[num_idx] = '\0';
+		if (!is_valid_int(num_str))
+		{
+			ft_perror("Error\n");
+			if (gc)
+				gc_free_all(gc);
+			exit(1);
+		}
+		value = ft_atoi(num_str);
+		new_node = (t_node *)gc_malloc(gc, sizeof(t_node));
+		if (!new_node)
+		{
+			ft_perror("Error\n");
+			if (gc)
+				gc_free_all(gc);
+			exit(1);
+		}
+		new_node->value = value;
+		new_node->next = NULL;
+		new_node->prev = tail;
+		if (tail)
+			tail->next = new_node;
+		else
+			*temp_head = new_node;
+		tail = new_node;
+	}
+}
+
 void fill_temp_stack(t_node **temp_head, char **argv, t_gc *gc)
 {
-    int i;
-    t_node *new_node;
-    t_node *tail;
-    int value;
+	int		i;
+	int		num_count;
+	t_node	*new_node;
+	t_node	*tail;
 
-    i = 1;
-    tail = NULL;
-    while (argv[i])
-    {
-        if (!is_valid_int(argv[i]))
-        {
-            ft_perror("Error\n");
-            if (gc)
-                gc_free_all(gc);
-            exit(1);
-        }
-        value = ft_atoi(argv[i]);
-        new_node = (t_node *)gc_malloc(gc, sizeof(t_node));
-        if (!new_node)
-        {
-            ft_perror("Error\n");
-            if (gc)
-                gc_free_all(gc);
-            exit(1);
-        }
-        new_node->value = value;
-        new_node->next = NULL;
-        new_node->prev = tail;
-        if (tail)
-            tail->next = new_node;
-        else
-            *temp_head = new_node;
-        tail = new_node;
-        i++;
-    }
+	i = 1;
+	while (argv[i])
+	{
+		num_count = count_numbers(argv[i]);
+		if (num_count < 0)
+		{
+			ft_perror("Error\n");
+			if (gc)
+				gc_free_all(gc);
+			exit(1);
+		}
+		if (num_count > 1 || ft_strlen(argv[i]) > 11)
+		{
+			parse_space_separated(temp_head, argv[i], gc);
+		}
+		else
+		{
+			if (!is_valid_int(argv[i]))
+			{
+				ft_perror("Error\n");
+				if (gc)
+					gc_free_all(gc);
+				exit(1);
+			}
+			new_node = (t_node *)gc_malloc(gc, sizeof(t_node));
+			if (!new_node)
+			{
+				ft_perror("Error\n");
+				if (gc)
+					gc_free_all(gc);
+				exit(1);
+			}
+			new_node->value = ft_atoi(argv[i]);
+			new_node->next = NULL;
+			new_node->prev = NULL;
+			if (*temp_head == NULL)
+			{
+				*temp_head = new_node;
+			}
+			else
+			{
+				tail = *temp_head;
+				while (tail->next)
+					tail = tail->next;
+				tail->next = new_node;
+				new_node->prev = tail;
+			}
+		}
+		i++;
+	}
 }
 
 void init_a_stack(t_node **a, t_node *temp_head, t_gc *gc)

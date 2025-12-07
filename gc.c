@@ -6,23 +6,11 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:37:36 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 15:27:24 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/07 15:47:17 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	ft_strlen(const char *s)
-{
-	int	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
 
 void	gc_init(t_gc *gc)
 {

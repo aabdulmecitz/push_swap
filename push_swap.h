@@ -6,7 +6,7 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:18:37 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 15:27:24 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/07 15:47:17 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ typedef struct s_gc
 
 int					is_valid_int(const char *str);
 int					check_values(t_node *head);
+int					count_numbers(const char *str);
+int					ft_strlen(const char *s);
+void				parse_space_separated(t_node **temp_head, const char *str, t_gc *gc);
 void				init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc);
 void				fill_temp_stack(t_node **temp_head, char **argv, t_gc *gc);
 void				init_a_stack(t_node **a, t_node *temp_head, t_gc *gc);

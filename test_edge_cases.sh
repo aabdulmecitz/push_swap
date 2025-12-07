@@ -32,11 +32,17 @@ run_test() {
     
     # Check if output contains "Error"
     has_error=0
-    if echo "$output" | grep -q "Error"; then
+    if echo "$output" | grep -qi "error"; then
         has_error=1
     fi
     
+    # Consider it an error if exit code is non-zero OR has "Error"
+    failed=0
     if [ $exit_code -ne 0 ] || [ $has_error -eq 1 ]; then
+        failed=1
+    fi
+    
+    if [ $failed -eq 1 ]; then
         # Command failed
         if [ "$should_fail" = "true" ]; then
             echo -e "  ${GREEN}${BOLD}✓${NC} ${DIM}${name}${NC}"
