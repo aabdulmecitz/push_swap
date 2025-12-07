@@ -1,4 +1,5 @@
-FILES = push_swap init utils ft_perror gc gc_utils operations1 operations2 operations3
+FILES = push_swap init_42norm utils ft_perror gc gc_utils operations1 operations2 \
+         operations3 validation parser_utils parser_space
 
 BONUS_FILES = checker_bonus utils_bonus
 

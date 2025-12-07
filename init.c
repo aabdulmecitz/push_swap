@@ -6,39 +6,11 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:29:31 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 15:47:17 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/07 15:57:19 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int ft_atoi(const char *str)
-{
-	long	num;
-	int		sign;
-	int		i;
-
-	if (!str || !*str)
-		return (0);
-	i = 0;
-	sign = 1;
-	num = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
-		|| str[i] == '\r' || str[i] == '\f' || str[i] == '\v')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		num = num * 10 + (str[i] - '0');
-		i++;
-	}
-	return ((int)(num * sign));
-}
 
 int is_valid_int(const char *str)
 {
@@ -100,18 +72,6 @@ int check_values(t_node *head)
 	return (1);
 }
 
-int ft_strlen(const char *s)
-{
-	int	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
 int count_numbers(const char *str)
 {
 	int	count;
@@ -134,77 +94,12 @@ int count_numbers(const char *str)
 			}
 		}
 		else if (str[i] == ' ' || str[i] == '\t')
-		{
 			in_number = 0;
-		}
 		else
-		{
 			return (-1);
-		}
 		i++;
 	}
 	return (count);
-}
-
-void parse_space_separated(t_node **temp_head, const char *str, t_gc *gc)
-{
-	int		i;
-	char	num_str[20];
-	int		num_idx;
-	t_node	*new_node;
-	t_node	*tail;
-	int		value;
-
-	i = 0;
-	tail = NULL;
-	if (*temp_head != NULL)
-	{
-		tail = *temp_head;
-		while (tail->next)
-			tail = tail->next;
-	}
-	while (str[i])
-	{
-		while (str[i] == ' ' || str[i] == '\t')
-			i++;
-		if (!str[i])
-			break;
-		num_idx = 0;
-		if ((str[i] == '-' || str[i] == '+') && 
-			(str[i + 1] >= '0' && str[i + 1] <= '9'))
-		{
-			num_str[num_idx++] = str[i++];
-		}
-		while (str[i] >= '0' && str[i] <= '9')
-		{
-			num_str[num_idx++] = str[i++];
-		}
-		num_str[num_idx] = '\0';
-		if (!is_valid_int(num_str))
-		{
-			ft_perror("Error\n");
-			if (gc)
-				gc_free_all(gc);
-			exit(1);
-		}
-		value = ft_atoi(num_str);
-		new_node = (t_node *)gc_malloc(gc, sizeof(t_node));
-		if (!new_node)
-		{
-			ft_perror("Error\n");
-			if (gc)
-				gc_free_all(gc);
-			exit(1);
-		}
-		new_node->value = value;
-		new_node->next = NULL;
-		new_node->prev = tail;
-		if (tail)
-			tail->next = new_node;
-		else
-			*temp_head = new_node;
-		tail = new_node;
-	}
 }
 
 void fill_temp_stack(t_node **temp_head, char **argv, t_gc *gc)
@@ -220,23 +115,19 @@ void fill_temp_stack(t_node **temp_head, char **argv, t_gc *gc)
 		num_count = count_numbers(argv[i]);
 		if (num_count < 0)
 		{
-			ft_perror("Error\n");
 			if (gc)
 				gc_free_all(gc);
-			exit(1);
+			(ft_perror("Error\n"), exit(1));
 		}
 		if (num_count > 1 || ft_strlen(argv[i]) > 11)
-		{
 			parse_space_separated(temp_head, argv[i], gc);
-		}
 		else
 		{
 			if (!is_valid_int(argv[i]))
 			{
-				ft_perror("Error\n");
-				if (gc)
-					gc_free_all(gc);
-				exit(1);
+                if (gc)
+                    gc_free_all(gc);
+				(ft_perror("Error\n"), exit(1));
 			}
 			new_node = (t_node *)gc_malloc(gc, sizeof(t_node));
 			if (!new_node)
@@ -279,10 +170,9 @@ void init_a_stack(t_node **a, t_node *temp_head, t_gc *gc)
         new_node = (t_node *)gc_malloc(gc, sizeof(t_node));
         if (!new_node)
         {
-            ft_perror("Error\n");
             if (gc)
                 gc_free_all(gc);
-            exit(1);
+            (ft_perror("Error\n"), exit(1));
         }
         new_node->value = current->value;
         new_node->next = NULL;
@@ -299,6 +189,7 @@ void init_a_stack(t_node **a, t_node *temp_head, t_gc *gc)
 void init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc)
 {
     t_gc local_gc;
+    t_node *temp_head;
 
     if (!gc)
     {
@@ -316,9 +207,10 @@ void init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc)
         exit(1);
     }
     
-    fill_temp_stack(stack_b, argv, gc);
+    temp_head = NULL;
+    fill_temp_stack(&temp_head, argv, gc);
     
-    if (!check_values(*stack_b))
+    if (!check_values(temp_head))
     {
         ft_perror("Error\n");
         if (gc)
@@ -326,5 +218,5 @@ void init_stacks(t_node **stack_a, t_node **stack_b, char **argv, t_gc *gc)
         exit(1);
     }
     
-    init_a_stack(stack_a, *stack_b, gc);
+    init_a_stack(stack_a, temp_head, gc);
 }
