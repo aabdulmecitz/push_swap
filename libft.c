@@ -6,9 +6,11 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 15:55:48 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/07 15:56:19 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/07 16:05:05 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 int ft_atoi(const char *str)
 {
