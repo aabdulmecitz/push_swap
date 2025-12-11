@@ -14,8 +14,8 @@
 
 static int	is_sign_at_start(const char *str, int i)
 {
-	return ((str[i] == '-' || str[i] == '+') && 
-			(i == 0 || (str[i - 1] == ' ' || str[i - 1] == '\t')));
+	return ((str[i] == '-' || str[i] == '+')
+		&& (i == 0 || (str[i - 1] == ' ' || str[i - 1] == '\t')));
 }
 
 static int	is_digit_or_sign(const char *str, int i)

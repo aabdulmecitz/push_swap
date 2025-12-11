@@ -1,5 +1,6 @@
-FILES = push_swap init utils ft_perror gc gc_utils operations1 operations2 \
-         operations3 validation parser_utils parser_space check_sorted short_sort cost move_to_b
+FILES = push_swap init build_stack fill_temp utils node_utils ft_perror gc \
+         gc_utils operations1 operations2 operations3 validation parser_utils \
+         parser_space check_sorted short_sort cost move_to_b
 
 BONUS_FILES = checker_bonus utils_bonus
 

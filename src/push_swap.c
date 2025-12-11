@@ -12,25 +12,25 @@
 
 #include "push_swap.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    t_node  *stack_a;
-    t_node  *stack_b;
-    t_gc    *gc;
+	t_node	*stack_a;
+	t_node	*stack_b;
+	t_gc	*gc;
 
 	stack_a = NULL;
 	stack_b = NULL;
 	if (argc == 1)
 		return (1);
-    (void)argc;
-    gc = init_stacks(&stack_a, &stack_b, argv, NULL);
-    if (!gc)
-        return (1);
-    if (!is_sorted(stack_a))
-        sort_stacks(&stack_a, &stack_b, gc);
-    if (!stack_a)
+	(void)argc;
+	gc = init_stacks(&stack_a, &stack_b, argv, NULL);
+	if (!gc)
+		return (1);
+	if (!is_sorted(stack_a))
+		sort_stacks(&stack_a, &stack_b, gc);
+	if (!stack_a)
 		return (gc_free_all(gc), 0);
-    if (gc)
-        (gc_free_all(gc), free(gc));
-    return (0);
+	if (gc)
+		(gc_free_all(gc), free(gc));
+	return (0);
 }

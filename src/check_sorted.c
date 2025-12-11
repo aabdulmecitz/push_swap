@@ -14,13 +14,11 @@
 
 bool	is_sorted(t_node *a)
 {
-    while (a && a->next)
-    {
-        if (a->value > a->next->value)
-            return (false);
-        a = a->next;
-    }
-    return (true);
+	while (a && a->next)
+	{
+		if (a->value > a->next->value)
+			return (false);
+		a = a->next;
+	}
+	return (true);
 }
-
-

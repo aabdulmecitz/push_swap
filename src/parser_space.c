@@ -26,8 +26,8 @@ static void	extract_number(const char *str, int *i, char *num_str)
 	int	num_idx;
 
 	num_idx = 0;
-	if ((str[*i] == '-' || str[*i] == '+') && 
-		(str[*i + 1] >= '0' && str[*i + 1] <= '9'))
+	if ((str[*i] == '-' || str[*i] == '+')
+		&& (str[*i + 1] >= '0' && str[*i + 1] <= '9'))
 		num_str[num_idx++] = str[(*i)++];
 	while (str[*i] >= '0' && str[*i] <= '9')
 		num_str[num_idx++] = str[(*i)++];
@@ -72,7 +72,7 @@ int	parse_space_separated(t_node **temp_head, const char *str, t_gc *gc)
 		while (str[i] == ' ' || str[i] == '\t')
 			i++;
 		if (!str[i])
-			break;
+			break ;
 		extract_number(str, &i, num_str);
 		if (!add_parsed_number(temp_head, num_str, gc))
 			return (0);

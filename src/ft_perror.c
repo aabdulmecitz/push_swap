@@ -14,15 +14,11 @@
 
 void	ft_perror(const char *msg)
 {
-    if (msg)
-    {
-        while (*msg)
-            write(1, msg++, 1);
-    }
-    else
-    {
-        const char *default_msg = "Error\n";
-        while (*default_msg)
-            write(1, default_msg++, 1);
-    }
+	const char	*text;
+
+	text = msg;
+	if (!text)
+		text = "Error\n";
+	while (*text)
+		write(1, text++, 1);
 }

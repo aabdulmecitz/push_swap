@@ -12,13 +12,11 @@
 
 #include "push_swap.h"
 
-void move_to_b(t_node **stack_a, t_node **stack_b)
+void	move_to_b(t_node **stack_a, t_node **stack_b)
 {
-    int size;
+	int	size;
 
-    size = get_stack_size(*stack_a);
-    while (size - get_stack_size(*stack_b) > 3)
-    {
-        pb(stack_a, stack_b, true);
-    }
+	size = get_stack_size(*stack_a);
+	while (size - get_stack_size(*stack_b) > 3)
+		pb(stack_a, stack_b, true);
 }

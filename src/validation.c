@@ -12,38 +12,48 @@
 
 #include "push_swap.h"
 
-int	is_valid_int(const char *str)
+static int	skip_sign(const char *str, int *sign)
+{
+	if (str[0] == '-')
+	{
+		*sign = -1;
+		return (1);
+	}
+	if (str[0] == '+')
+		return (-1);
+	return (0);
+}
+
+static int	check_digits(const char *str, int i, int sign)
 {
 	long	num;
-	int		sign;
-	int		i;
 
-	if (!str || !*str)
-		return (0);
-	i = 0;
-	sign = 1;
 	num = 0;
-	if (str[i] == '-')
-	{
-		sign = -1;
-		i++;
-	}
-	else if (str[i] == '+')
-		return (0);
-	if (!str[i])
-		return (0);
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
 			return (0);
 		num = num * 10 + (str[i] - '0');
-		if (sign == 1 && num > INT_MAX)
-			return (0);
-		if (sign == -1 && num > (long)INT_MAX + 1)
+		if ((sign == 1 && num > INT_MAX)
+			|| (sign == -1 && num > (long)INT_MAX + 1))
 			return (0);
 		i++;
 	}
 	return (1);
+}
+
+int	is_valid_int(const char *str)
+{
+	int	sign;
+	int	i;
+
+	if (!str || !*str)
+		return (0);
+	sign = 1;
+	i = skip_sign(str, &sign);
+	if (i < 0 || !str[i])
+		return (0);
+	return (check_digits(str, i, sign));
 }
 
 static int	check_duplicates(t_node *head)
