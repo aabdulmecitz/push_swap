@@ -3,34 +3,43 @@
 
 static void	exit_with_error(void)
 {
-	ft_perror("Error\n");
+	write(2, "Error\n", 6);
 	exit(1);
+}
+
+static int	match_op(const char *input, const char *op)
+{
+	size_t	len;
+
+	len = ft_strlen(op);
+	return (ft_strncmp(input, op, len) == 0
+		&& (input[len] == '\n' || input[len] == '\0'));
 }
 
 void	process_the_input(char *input, t_node **stack_a, t_node **stack_b)
 {
-	if (ft_strncmp(input, "pa", 2) == 0)
-		pa(stack_a, stack_b, true);
-	else if (ft_strncmp(input, "pb", 2) == 0)
-		pb(stack_b, stack_a, true);
-	else if (ft_strncmp(input, "sa", 2) == 0)
-		sa(stack_a, true);
-	else if (ft_strncmp(input, "sb", 2) == 0)
-		sb(stack_b, true);
-	else if (ft_strncmp(input, "ss", 2) == 0)
-		ss(stack_a, stack_b, true);
-	else if (ft_strncmp(input, "rra", 3) == 0)
-		rra(stack_a, true);
-	else if (ft_strncmp(input, "rrb", 3) == 0)
-		rrb(stack_b, true);
-	else if (ft_strncmp(input, "rrr", 3) == 0)
-		rrr(stack_a, stack_b, true);
-	else if (ft_strncmp(input, "ra", 2) == 0)
-		ra(stack_a, true);
-	else if (ft_strncmp(input, "rb", 2) == 0)
-		rb(stack_b, true);
-	else if (ft_strncmp(input, "rr", 2) == 0)
-		rr(stack_a, stack_b, true);
+	if (match_op(input, "pa"))
+		pa(stack_a, stack_b, false);
+	else if (match_op(input, "pb"))
+		pb(stack_b, stack_a, false);
+	else if (match_op(input, "sa"))
+		sa(stack_a, false);
+	else if (match_op(input, "sb"))
+		sb(stack_b, false);
+	else if (match_op(input, "ss"))
+		ss(stack_a, stack_b, false);
+	else if (match_op(input, "rra"))
+		rra(stack_a, false);
+	else if (match_op(input, "rrb"))
+		rrb(stack_b, false);
+	else if (match_op(input, "rrr"))
+		rrr(stack_a, stack_b, false);
+	else if (match_op(input, "ra"))
+		ra(stack_a, false);
+	else if (match_op(input, "rb"))
+		rb(stack_b, false);
+	else if (match_op(input, "rr"))
+		rr(stack_a, stack_b, false);
 	else
 		exit_with_error();
 }

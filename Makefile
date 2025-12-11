@@ -39,6 +39,7 @@ $(AR_NAME): $(LIBFT) $(OBJS)
 
 bonus: $(LIBFT) $(AR_NAME) $(BONUS_OBJS)
 	$(CC) $(CFLAGS) $(BONUS_OBJS) $(AR_NAME) $(LIBFT) -o $(CHECKER_NAME)
+	$(RM) $(AR_NAME)
 
 all: $(NAME)
 
