@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 {
 	t_node	*stack_a;
 	t_node	*stack_b;
-	t_gc			*gc;
+	t_gc	*gc;
 
 	stack_a = NULL;
 	stack_b = NULL;
