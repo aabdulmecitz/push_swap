@@ -75,4 +75,3 @@ void	sort_stacks(t_node **stack_a, t_node **stack_b, t_gc *gc)
 		move_best_from_b(stack_a, stack_b);
 	align_smallest_to_top(stack_a);
 }
-    
