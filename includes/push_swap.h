@@ -6,7 +6,7 @@
 /*   By: aozkaya <aozkaya@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/07 14:18:37 by aozkaya           #+#    #+#             */
-/*   Updated: 2025/12/08 02:28:22 by aozkaya          ###   ########.fr       */
+/*   Updated: 2025/12/11 11:11:18 by aozkaya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 
 typedef struct s_node
 {
-	int			value;
-	int			index;
-	int			keep;
+	int				value;
+	int				index;
+	int				keep;
 	struct s_node	*next;
 	struct s_node	*prev;
 }	t_node;
@@ -39,7 +39,7 @@ typedef struct s_cost
 
 typedef struct s_gc_node
 {
-	void			*ptr;
+	void				*ptr;
 	struct s_gc_node	*next;
 }	t_gc_node;
 
@@ -54,16 +54,16 @@ typedef struct s_target
 	int			index;
 	int			target_pos_a;
 	int			target_pos_b;
-	t_cost			move_cost;
+	t_cost		move_cost;
 }	t_target;
 
 int				is_valid_int(const char *str);
 int				check_values(t_node *head);
 int				count_numbers(const char *str);
 int				ft_atoi(const char *str);
-int				parse_space_separated(t_node **temp_head,
+int				parse_space_separated(t_node **temp_head,\
 				const char *str, t_gc *gc);
-t_gc			*init_stacks(t_node **stack_a, t_node **stack_b,
+t_gc			*init_stacks(t_node **stack_a, t_node **stack_b,\
 				char **argv, t_gc *gc);
 int				fill_temp_stack(t_node **temp_head, char **argv, t_gc *gc);
 int				init_a_stack(t_node **a, t_node *temp_head, t_gc *gc);
@@ -98,7 +98,7 @@ bool			is_sorted(t_node *a);
 void			mark_lis_nodes(t_node *stack);
 int				position_of_index(t_node *stack, int index);
 int				find_target_position(t_node *stack_a, int b_index);
-t_cost			calculate_cost(int target_pos_a, int pos_b,
+t_cost			calculate_cost(int target_pos_a, int pos_b,\
 				int size_a, int size_b);
 void			apply_rotation(t_node **stack_a, t_node **stack_b, t_cost cost);
 void			align_smallest_to_top(t_node **stack_a);
