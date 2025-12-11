@@ -28,7 +28,8 @@ static void	cleanup_gc(t_gc *gc, t_gc *local_gc)
 		free(local_gc);
 }
 
-static int	build_temp(t_node **temp_head, char **argv, t_gc *gc, t_gc *local_gc)
+static int	build_temp(t_node **temp_head, char **argv,
+			t_gc *gc, t_gc *local_gc)
 {
 	*temp_head = NULL;
 	if (!fill_temp_stack(temp_head, argv, gc))

@@ -95,5 +95,14 @@ void			move_to_b(t_node **stack_a, t_node **stack_b);
 void			sort_stacks(t_node **stack_a, t_node **stack_b, t_gc *gc);
 void			sort_three(t_node **a);
 bool			is_sorted(t_node *a);
+void			mark_lis_nodes(t_node *stack);
+int				position_of_index(t_node *stack, int index);
+int				find_target_position(t_node *stack_a, int b_index);
+t_cost			calculate_cost(int target_pos_a, int pos_b,
+				int size_a, int size_b);
+void			apply_rotation(t_node **stack_a, t_node **stack_b, t_cost cost);
+void			align_smallest_to_top(t_node **stack_a);
+t_target		find_cheapest_target(t_node *stack_a, t_node *stack_b);
+void			move_best_from_b(t_node **stack_a, t_node **stack_b);
 
 #endif
