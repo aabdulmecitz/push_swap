@@ -8,6 +8,7 @@ Tests: INT_MIN/MAX overflow, invalid characters, duplicates, empty input, etc.
 
 import subprocess
 import sys
+import random
 from typing import List, Tuple
 
 # ANSI color codes
@@ -194,6 +195,16 @@ def setup_tests() -> EdgeCaseTester:
     tester.add_test("INT_MIN with INT_MAX", "-2147483648 2147483647", should_error=False)
     tester.add_test("Overflow with valid", "2147483648 42", should_error=True)
     tester.add_test("Invalid char with overflow", "2147483648 abc", should_error=True)
+
+    # ============ RANDOMIZED SIZE CASES ============
+    print(f"\n{Colors.SECTION}🎲 RANDOMIZED SIZE CASES{Colors.RESET}")
+    random.seed(42)
+    rand_100 = list(range(1, 101))
+    random.shuffle(rand_100)
+    rand_500 = list(range(1, 501))
+    random.shuffle(rand_500)
+    tester.add_test("Random 100 numbers", " ".join(map(str, rand_100)), should_error=False)
+    tester.add_test("Random 500 numbers", " ".join(map(str, rand_500)), should_error=False)
     
     return tester
 

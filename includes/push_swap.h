@@ -23,12 +23,19 @@ typedef struct s_node
 {
     int             value;
 	int				index;
-	int				cost;
-	int				target_pos_a;
-	int				target_pos_b;
+	int				keep;
     struct s_node   *next;
     struct s_node   *prev;
 }               t_node;
+
+typedef struct s_cost
+{
+	int	cost_a;
+	int	cost_b;
+	int	total_cost;
+	int	direction_a; // 1 -> rotate (ra), -1 -> reverse rotate (rra)
+	int	direction_b; // 1 -> rotate (rb), -1 -> reverse rotate (rrb)
+}				t_cost;
 
 typedef struct s_gc_node
 {
@@ -45,9 +52,9 @@ typedef struct s_gc
 typedef struct s_target
 {
 	int					index;
-	int					cost;
 	int					target_pos_a;
 	int					target_pos_b;
+	t_cost				move_cost;
 }						t_target;
 
 int					is_valid_int(const char *str);
@@ -88,9 +95,6 @@ void				rrr(t_node **a, t_node **b, bool print);
 
 int					get_position(t_node *stack, int value);
 int					get_stack_size(t_node *stack);
-void				calculate_costs(t_node *stack_a, t_node *stack_b);
-void				print_costs(t_node *stack_a, t_node *stack_b);
-int					find_cheapest_element(t_node *stack_b);
 void				move_to_b(t_node **stack_a, t_node **stack_b);
 void				sort_stacks(t_node **stack_a, t_node **stack_b, t_gc *gc);
 void				sort_three(t_node **a);

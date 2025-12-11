@@ -22,6 +22,7 @@ static t_node	*create_node(int value, t_gc *gc)
 	new_node->value = value;
 	new_node->next = NULL;
 	new_node->prev = NULL;
+	new_node->keep = 0;
 	return (new_node);
 }
 
