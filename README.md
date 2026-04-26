@@ -1,3 +1,7 @@
+# Push_Swap
+
+![Push_Swap Visualizer Preview](assets/preview.gif)
+
 *This project has been created as part of the 42 curriculum by aozkaya.*
 
 ## Description
