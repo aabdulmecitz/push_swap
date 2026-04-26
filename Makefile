@@ -81,4 +81,7 @@ run_test_100: re
 run_test_500: re
 	ARG=`ruby -e "puts (1..500).to_a.shuffle.join(' ')"`; ./push_swap $$ARG | wc -l
 
-.PHONY: all clean fclean re bonus push compile_libs update run
+visualize: all
+	python3 visualize.py `ruby -e "puts (1..50).to_a.shuffle.join(' ')"`
+
+.PHONY: all clean fclean re bonus push compile_libs update run visualize
