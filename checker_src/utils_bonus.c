@@ -21,7 +21,7 @@ void	process_the_input(char *input, t_node **stack_a, t_node **stack_b)
 	if (match_op(input, "pa"))
 		pa(stack_a, stack_b, false);
 	else if (match_op(input, "pb"))
-		pb(stack_b, stack_a, false);
+		pb(stack_a, stack_b, false);
 	else if (match_op(input, "sa"))
 		sa(stack_a, false);
 	else if (match_op(input, "sb"))
